@@ -20,6 +20,7 @@ function Signup() {
   });
 
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Google-style visibility toggle state
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -35,6 +36,7 @@ function Signup() {
       confirmPassword: "",
     });
     setAgreeToTerms(false);
+    setShowPassword(false);
   }, []);
 
   const handleChange = (e) => {
@@ -76,7 +78,6 @@ function Signup() {
 
   return (
     <div className="auth-container">
-      {/* Changed to auth-card to separate it completely from the wide 800px legal view */}
       <div className="auth-card signup-card">
         <h2>Create Account</h2>
 
@@ -130,7 +131,7 @@ function Signup() {
                 type="text"
                 name="plateNumber"
                 placeholder=" "
-                autoCapitalize="characters" /* Mobile optimization helper */
+                autoCapitalize="characters"
                 value={formData.plateNumber}
                 onChange={handleChange}
                 required
@@ -169,7 +170,7 @@ function Signup() {
           <div className="form-row">
             <div className="input-group">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder=" "
                 autoComplete="new-password"
@@ -182,7 +183,7 @@ function Signup() {
 
             <div className="input-group">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="confirmPassword"
                 placeholder=" "
                 autoComplete="new-password"
@@ -192,6 +193,18 @@ function Signup() {
               />
               <span className="floating-placeholder">Repeat Password</span>
             </div>
+          </div>
+
+          {/* Google-Style Password Visibility Checkbox */}
+          <div className="checkbox-group" style={{ marginBottom: "10px" }}>
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={(e) => setShowPassword(e.target.checked)}
+              />
+              <span>Show password</span>
+            </label>
           </div>
 
           {/* Legal Compliance Checkbox */}
