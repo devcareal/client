@@ -1,77 +1,152 @@
 /* Navbar.css */
+
+/* ── Desktop ── */
 .navbar {
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 
 .navbar-links {
   display: flex;
+  align-items: center;
+  gap: 4px;
   list-style: none;
-  letter-spacing: 0.05rem;
-  gap: 2rem;
-  text-transform: uppercase;
   margin: 0;
   padding: 0;
 }
 
-.navbar-links a {
-  color: #f8f7fa; /* Soft gray for links */
+.navbar-links li a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: color 0.25s ease;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
 }
 
-.navbar-links a:hover {
-  color: #1a1a1a; /* dark pop on hover */
+.navbar-links li a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* Standout Login Action Button */
-.auth-btn {
-  padding: 0.5rem 1.2rem;
-  background: #1a1a1a; 
-  color: #ffffff !important; /* Forces text white inside dark button container */
-  border-radius: 6px;
-  font-weight: 600;
-  transition: background-color 0.2s ease !important;
+.navbar-links li a.auth-btn {
+  background: linear-gradient(135deg, #7C3AED, #9D5CF6);
+  color: #fff;
+  font-weight: 700;
+  padding: 9px 22px;
+  border-radius: 12px;
+  box-shadow: 0 3px 14px rgba(124, 58, 237, 0.4);
+  transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  margin-left: 6px;
 }
 
-.auth-btn:hover {
-  background: #333333;
+.navbar-links li a.auth-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(124, 58, 237, 0.5);
+  background: linear-gradient(135deg, #7C3AED, #9D5CF6);
+  color: #fff;
 }
 
-/* Responsive Mobile Screen Flyout */
+/* ── Mobile Drawer ── */
 @media (max-width: 768px) {
   .navbar {
     position: fixed;
-    top: 4rem; 
-    right: -100%;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: calc(100vh - 4rem);
-    background-color: #ffffff; /* Matches header cleanly */
-    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    background: rgba(10, 3, 30, 0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 4rem 0;
-    box-sizing: border-box;
-    z-index: 999;
+    align-items: center;
+    justify-content: center;
+
+    /* Hidden state */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-12px);
+
+    /* Smooth transition */
+    transition:
+      opacity    0.35s cubic-bezier(0.23, 1, 0.32, 1),
+      visibility 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+      transform  0.35s cubic-bezier(0.23, 1, 0.32, 1);
+
+    z-index: 1050;
   }
 
-  .navbar-active {
-    right: 0;
+  /* Open state */
+  .navbar.navbar-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transform: translateY(0);
   }
 
   .navbar-links {
     flex-direction: column;
+    gap: 6px;
     align-items: center;
-    gap: 3rem;
     width: 100%;
+    padding: 0 32px;
   }
 
-  .navbar-links a {
-    font-size: 1.2rem; /* Slighly larger readable target fonts for touch targets */
-    color: #1a1a1a;
+  .navbar-links li {
+    width: 100%;
+    max-width: 320px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity   0.3s ease,
+      transform 0.3s ease;
+  }
+
+  /* Stagger each link when open */
+  .navbar.navbar-active .navbar-links li:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.08s; }
+  .navbar.navbar-active .navbar-links li:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.14s; }
+  .navbar.navbar-active .navbar-links li:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.20s; }
+  .navbar.navbar-active .navbar-links li:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.26s; }
+  .navbar.navbar-active .navbar-links li:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.32s; }
+
+  .navbar-links li a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px 24px;
+    color: rgba(255, 255, 255, 0.85);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .navbar-links li a:hover {
+    color: #fff;
+    background: rgba(124, 58, 237, 0.22);
+    border-color: rgba(124, 58, 237, 0.4);
+  }
+
+  .navbar-links li a.auth-btn {
+    margin-left: 0;
+    margin-top: 6px;
+    font-size: 18px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #7C3AED, #9D5CF6);
+    border: none;
+    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
+  }
+
+  .navbar-links li a.auth-btn:hover {
+    opacity: 0.9;
+    transform: none;
+    color: #fff;
   }
 }

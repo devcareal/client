@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar.jsx";
 import "./Header.css";
-import logo from '../assets/images/Careal-logo-2.png'; 
+import logo from '../assets/images/Careal_logo.jpeg'; 
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
