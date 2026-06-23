@@ -21,6 +21,23 @@ body { font-family: 'DM Sans', sans-serif; color: #1E1040; background: #fff; -we
   inset: 0;
   z-index: 0;
 }
+
+/* Add to Home.css underneath .hero-bg styles */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: opacity 0.4s ease-in-out; /* Handles image blending speed */
+}
+
+.bg-fade-out { 
+  opacity: 0.2; /* Dips opacity during switch to prevent rough flashing */
+}
+
+.bg-fade-in { 
+  opacity: 1; 
+}
+
 .hero-bg-img {
   width: 100%;
   height: 100%;
@@ -72,6 +89,31 @@ body { font-family: 'DM Sans', sans-serif; color: #1E1040; background: #fff; -we
   background: #A78BFA;
   animation: pulseDot 2s ease-in-out infinite;
 }
+
+/* Update your existing .hero-bg and image styles in Home.css */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden; /* Clips out the non-active images outside the screen boundaries */
+}
+
+/* Flex track that lines all images up horizontally side-by-side */
+.hero-slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); /* Professional ease-out sliding transition */
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0; /* Prevents the browser from compressing images inside the flexbox */
+  display: block;
+}
+
 @keyframes pulseDot {
   0%,100% { opacity:1; transform:scale(1); }
   50%      { opacity:0.4; transform:scale(0.65); }

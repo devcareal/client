@@ -1,5 +1,5 @@
 // Header.jsx
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "./Navbar.jsx";
 import "./Header.css";
 import logo from '../assets/images/Careal_logo.jpeg'; 
@@ -8,22 +8,8 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(prev => !prev);
   };
-
-  // Prevent background scrolling while mobile overlay menu is active
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    
-    // Clean up on component unmount
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
 
   return (
     <header className="header"> 

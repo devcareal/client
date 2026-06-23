@@ -2,9 +2,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import carGif from "../../assets/images/car-b5.gif";
 
-// Each slide has a different overlay tint + headline variation
+// ✅ 1. Correctly named individual image imports
+import carGif0 from "../../assets/images/car-b5.gif";
+import carGif1 from "../../assets/images/car_1.jpg";
+import carGif2 from "../../assets/images/car_2.jpg";
+import carGif3 from "../../assets/images/car_3.jpg";
+import carGif4 from "../../assets/images/car_4.jpg";
+import carGif5 from "../../assets/images/car_5.jpg";
+import carGif10 from "../../assets/images/car_10.jpg";
+
+// Map imported assets into an array matching your slides loop length
+const CAR_IMAGES = [carGif0, carGif1, carGif2]; 
+
 const SLIDES = [
   {
     overlay: "linear-gradient(135deg, rgba(10,3,30,0.82) 0%, rgba(60,20,120,0.70) 60%, rgba(10,3,30,0.80) 100%)",
@@ -30,27 +40,9 @@ const SLIDES = [
 ];
 
 const SERVICES = [
-  {
-    icon: "📋",
-    name: "Vehicle Licence Renewal",
-    desc: "Renew your vehicle licence online. No office visit, no queues — processed in 1–2 business days.",
-    price: "₦2,500",
-    duration: "1–2 business days",
-  },
-  {
-    icon: "🛡️",
-    name: "Road Worthiness Certificate",
-    desc: "Get your road worthiness certificate renewed hassle-free by our certified agents.",
-    price: "₦13,000",
-    duration: "2–3 business days",
-  },
-  {
-    icon: "📄",
-    name: "Vehicle Insurance Renewal",
-    desc: "Renew your motor insurance with verified providers — all confirmed online in 1 business day.",
-    price: "₦15,000",
-    duration: "1 business day",
-  },
+  { icon: "📋", name: "Vehicle Licence Renewal", desc: "Renew your vehicle licence online. No office visit, no queues — processed in 1–2 business days.", price: "₦2,500", duration: "1–2 business days" },
+  { icon: "🛡️", name: "Road Worthiness Certificate", desc: "Get your road worthiness certificate renewed hassle-free by our certified agents.", price: "₦13,000", duration: "2–3 business days" },
+  { icon: "📄", name: "Vehicle Insurance Renewal", desc: "Renew your motor insurance with verified providers — all confirmed online in 1 business day.", price: "₦15,000", duration: "1 business day" },
 ];
 
 const STEPS = [
@@ -71,7 +63,6 @@ export default function Home() {
   const [current, setCurrent] = useState(0);
   const [fading,  setFading]  = useState(false);
 
-  // Auto-advance every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setFading(true);
@@ -93,20 +84,35 @@ export default function Home() {
 
   return (
     <>
-      {/* ── Hero with sliding background tints ── */}
       <section className="home-hero">
-        {/* Background image (stays fixed) */}
-        <div className="hero-bg">
-          <img src={carGif} alt="Moving car" className="hero-bg-img" />
+        {/* Apply the dynamic sliding asset image & fade hooks directly */}
+        <div className={`hero-bg ${fading ? "bg-fade-out" : "bg-fade-in"}`}>
+          {/* <img src={CAR_IMAGES[current]} alt="Moving car" className="hero-bg-img" /> */}
+          <img src={CAR_IMAGES[current]} alt="Vehicle" className={`hero-bg-img ${fading ? "bg-fade-out" : "bg-fade-in"}`} />
         </div>
 
-        {/* Animated colour overlay */}
+        <div className="hero-bg">
+          {/* The slider track moves horizontally based on the active image index */}
+          <div 
+            className="hero-slider-track" 
+            style={{ transform: `translateX(-${current * 100}%)` }}
+          >
+            {CAR_IMAGES.map((imgSrc, index) => (
+              <img 
+                key={index} 
+                src={imgSrc} 
+                alt={`Vehicle ${index}`} 
+                className="hero-bg-img" 
+              />
+            ))}
+          </div>
+        </div>
+
         <div
           className={`hero-overlay ${fading ? "overlay-fade-out" : "overlay-fade-in"}`}
           style={{ background: slide.overlay }}
         />
 
-        {/* Content */}
         <div className={`hero-content ${fading ? "content-fade-out" : "content-fade-in"}`}>
           <div className="hero-badge">
             <span className="hero-badge-dot" />
@@ -133,7 +139,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Dot indicators */}
         <div className="hero-dots">
           {SLIDES.map((_, i) => (
             <button
@@ -145,7 +150,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Scroll hint */}
         <div className="hero-scroll-indicator">
           <span>Scroll</span>
           <div className="hero-scroll-arrow" />

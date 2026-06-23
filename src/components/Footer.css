@@ -131,22 +131,20 @@
 }
 
 @media (max-width: 640px) {
-  .footer-links {
-    padding: 44px 20px 32px;
-  }
   .footer-link-wrapper {
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
+    grid-template-columns: 1fr; /* Switch from 2 columns to a single clean vertical stack */
+    gap: 32px;
   }
-  .social-media {
-    padding: 20px 20px 32px;
-  }
+  
   .social-media-wrap {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center; /* Center items for a cleaner, balanced mobile presentation */
+    text-align: center;
+    gap: 20px;
   }
+
   .website-rights {
+    white-space: normal; /* Force text wrapping to prevent cutoff on small screens */
     order: 3;
   }
 }

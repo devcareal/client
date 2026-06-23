@@ -337,3 +337,10 @@ body { background: #F8F6FF; font-family: 'DM Sans', sans-serif; color: #1E1040; 
   .pub-svc-trust-item { border-right: none; border-bottom: 1px solid #EDE9FE; padding: 14px 8px; min-width: unset; width: 100%; }
   .pub-svc-trust-item:last-child { border-bottom: none; }
 }
+
+/* ── Sync template alignment across viewports ── */
+@media (max-width: 768px) {
+  .pub-svc-root {
+    padding-top: 62px; /* Matches the exact mobile layout header height */
+  }
+}
